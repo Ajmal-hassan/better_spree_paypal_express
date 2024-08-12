@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenamePaymentMethods < SpreeExtension::Migration[4.2]
   def up
     execute <<-SQL
