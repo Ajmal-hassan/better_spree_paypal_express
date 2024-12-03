@@ -12,7 +12,7 @@ module SpreePaypalExpress
     end
 
     config.after_initialize do |app|
-      app.config.spree.payment_methods << Spree::Gateway::PayPalExpress
+      app.config.spree.payment_methods << ::Spree::Gateway::PayPalExpress
     end
 
     def self.activate
