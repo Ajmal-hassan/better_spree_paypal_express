@@ -7,7 +7,7 @@
 <% end %>
 
 <%= form_tag paypal_refund_admin_order_payment_path(@order, @payment) do %>
-  <div class="label-block left five columns alpha">
+  <div class="label-block left five columns alpha p-2">
     <div>
       <fieldset data-hook="admin_variant_new_form">
         <legend><%= Spree.t('refund', :scope => :paypal) %></legend>
@@ -20,11 +20,11 @@
         <div class="form-group">
           <div class="input-group">
             <% if currency.symbol_first %>
-                <span class="input-group-addon" id="basic-addon1"><%= currency.symbol %></span>
-                <%= text_field_tag 'refund_amount', @payment.amount, class: 'form-control' %>
+                <span class="input-group-addon mt-1 pr-1" id="basic-addon1"><%= currency.symbol %></span>
+                <%= text_field_tag 'refund_amount', @payment.amount, class: 'form-control rounded' %>
             <% else %>
-                <%= text_field_tag 'refund_amount', @payment.amount, class: 'form-control' %>
-                <span class="input-group-addon" id="basic-addon1"><%= currency.symbol %></span>
+                <%= text_field_tag 'refund_amount', @payment.amount, class: 'form-control rounded' %>
+                <span class="input-group-addon mt-1" id="basic-addon1"><%= currency.symbol %></span>
             <% end %>
           </div>
         </div>

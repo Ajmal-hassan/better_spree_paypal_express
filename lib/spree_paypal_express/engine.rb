@@ -11,6 +11,10 @@ module SpreePaypalExpress
       g.test_framework :rspec
     end
 
+    config.after_initialize do |app|
+      app.config.spree.payment_methods << ::Spree::Gateway::PayPalExpress
+    end
+
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
@@ -19,8 +23,5 @@ module SpreePaypalExpress
 
     config.to_prepare &method(:activate).to_proc
 
-    initializer "spree.paypal_express.payment_methods", :after => "spree.register.payment_methods" do |app|
-      app.config.spree.payment_methods << Spree::Gateway::PayPalExpress
-    end
   end
 end

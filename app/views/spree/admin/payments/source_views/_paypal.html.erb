@@ -1,7 +1,7 @@
 <fieldset data-hook="paypal">
   <legend align="center"><%= Spree.t(:transaction, :scope => :paypal) %></legend>
 
-  <div class="row">
+  <div class="row p-4">
     <div class="alpha six columns">
       <dl>
         <dt><%= Spree.t(:payer_id, :scope => :paypal) %>:</dt>
@@ -14,22 +14,23 @@
         <dd><%= payment.source.transaction_id %></dd>
       </dl>
     </div>
+    <div class="pl-2" >
+      <% if payment.source.state != 'refunded' %>
+      <%= button_link_to Spree.t('actions.refund', scope: :paypal), spree.paypal_refund_admin_order_payment_path(@order, payment), icon: 'money', class: 'btn btn-primary' %>
+      <% else %>
+        <div class="alpha six columns">
+          <dl>
+            <dt><%= Spree.t(:state, :scope => :paypal) %>:</dt>
+            <dd><%= payment.source.state.titleize %></dd>
 
-    <% if payment.source.state != 'refunded' %>
-      <%= button_link_to Spree.t('actions.refund', scope: :paypal), spree.paypal_refund_admin_order_payment_path(@order, payment), icon: 'money' %>
-    <% else %>
-      <div class="alpha six columns">
-        <dl>
-          <dt><%= Spree.t(:state, :scope => :paypal) %>:</dt>
-          <dd><%= payment.source.state.titleize %></dd>
+            <dt><%= Spree.t(:refunded_at, :scope => :paypal) %>:</dt>
+            <dd><%= pretty_time(payment.source.refunded_at) %></dd>
 
-          <dt><%= Spree.t(:refunded_at, :scope => :paypal) %>:</dt>
-          <dd><%= pretty_time(payment.source.refunded_at) %></dd>
-
-          <dt><%= Spree.t(:refund_transaction_id, :scope => :paypal) %>:</dt>
-          <dd><%= payment.source.refund_transaction_id %></dd>
-        </dl>
-      </div>
-    <% end %>
+            <dt><%= Spree.t(:refund_transaction_id, :scope => :paypal) %>:</dt>
+            <dd><%= payment.source.refund_transaction_id %></dd>
+          </dl>
+        </div>
+      <% end %>
+    </div>
   </div>
 </fieldset>
